@@ -1,12 +1,27 @@
 import React, {ReactNode} from "react";
-import './ColumnedEvent.css';
+import './GroupedEvent.css';
 
-const ColumnedEventComponent: React.FC<{ children : ReactNode, heigth: number, paddingTop: number  }> = ({ children, heigth: height, paddingTop }) => {
+/**
+ * Grouped event properties
+ */
+export interface GroupedEventProps {
+    height: number;
+    marginTop: number;
+    children: ReactNode;
+}
+
+/**
+ * Grouped event component
+ * @param height The height of the event
+ * @param marginTop The margin top of the event
+ * @param children The children
+ */
+const GroupedEvent: React.FC<GroupedEventProps> = ({ children, height: height, marginTop }) => {
     return (
-        <div className="columned-events" style={{height: `${height}vh`, paddingTop: `${paddingTop}vh`}} >
+        <div className="grouped-events" style={{height: `${height}vh`, marginTop: `${marginTop}vh`}} >
             {children}
         </div>
     )
 }
 
-export default ColumnedEventComponent;
+export default GroupedEvent;
