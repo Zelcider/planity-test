@@ -1,6 +1,4 @@
-.columned-events {
+.grouped-events {
     display: flex;
     flex-direction: row;
-    justify-content: start;
-    border: red 1px solid;
 }
