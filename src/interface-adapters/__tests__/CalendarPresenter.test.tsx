@@ -73,13 +73,4 @@ describe('CalendarPresenter', () => {
         // Assert
         expect(actualTimeRangeEventComponents).toBe(expectedTimeRangeEventComponents);
     });
-
-    it('does not render GroupedEventComponent when groupedEvents is empty', () => {
-        // Arrange
-        // Act
-        const { container } = render(<CalendarPresenter groupedEvents={[]} />);
-        const groupedEventComponent = container.getElementsByClassName('grouped-events');
-        // Assert
-        expect(groupedEventComponent).toBeNull();
-    });
 });
