@@ -1,47 +1,93 @@
-# React + TypeScript + Vite
+# Calendar Event Layout Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project tackles the challenge of rendering events on a calendar without visual overlaps, ensuring that every overlapping event shares the same width and each event utilizes the maximum width available. Developed with a focus on Clean Architecture principles and TDD (Test-Driven Development), this solution leverages Vite, Vitest, and TypeScript to create a robust, maintainable, and scalable application.
 
-Currently, two official plugins are available:
+You can find the live demo [here](https://codesandbox.io/p/github/Zelcider/planity-test/main?workspaceId=f445c1d1-794c-4f02-9262-c64b06db8cbf).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+And the initial problem statement [here](Problem_Statement.md)
 
-## Expanding the ESLint configuration
+## Code Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The codebase is structured into several main parts:
 
-- Configure the top-level `parserOptions` property like this:
+- `entities`: This directory contains the domain entities used throughout the application.
+- `use-cases`: This directory contains the use cases that define the business logic of the application, such as calculating event overlaps and determining event dimensions.
+- `components`: This directory contains the React components used to build the user interface.
+- `interface-adapters`: This directory contains the presenter components that connect the entities with the components.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-
+Here is a flow graph that shows how these parts interact:
 
 ```mermaid
-graph TB
-A[TimeRangeEventComponent.tsx] --> B[Imports]
-A --> C[TimeRangeEventComponentProps Interface]
-A --> D[TimeRangeEventComponent Function Component]
-B --> E[React]
-B --> F[TimeRangeEvent from entities]
-B --> G[TimeRangeEvent.css]
-C --> H[timeRangeEvent: TimeRangeEvent]
-C --> I[height: number]
-C --> J[marginTop: number]
-D --> K[Return JSX]
-K --> L[time-range-event div]
-L --> M[time-range-id span]
+graph LR
+    A[GroupedEvent] --> B[GroupedEventComponent]
+    B --> C[GroupedEventPresenter]
+    D[ColumnedEvent] --> E[ColumnedEventComponent]
+    E --> F[ColumnedEventPresenter]
+    G[TimeRangeEvent] --> H[TimeRangeEventComponent]
+    H --> I[TimeRangeEventPresenter]
+    C --> J[CalendarComponent]
+    F --> J
+    I --> J
 ```
+
+In this graph:
+
+- `GroupedEvent`, `ColumnedEvent`, and `TimeRangeEvent` are the domain entities.
+- `GroupedEventComponent`, `ColumnedEventComponent`, and `TimeRangeEventComponent` are the React components.
+- `GroupedEventPresenter`, `ColumnedEventPresenter`, and `TimeRangeEventPresenter` are the presenter components that connect the entities with the components.
+- `CalendarComponent` is the main component that uses the presenter components to render the calendar.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+What things you need to install the software and how to install them.
+
+- Node.js
+- npm
+
+### Installing
+
+Run this command to install the dependencies:
+
+```bash
+npm install
+```
+
+## Running the tests
+
+This project uses `vitest` for testing. To run the tests, use the following command:
+```bash
+npm test
+```
+
+## Running the application
+
+To run the application, use the following command:
+```bash
+npm run dev
+```
+
+## Built With
+
+- [React](https://reactjs.org/) - The web framework used
+- [TypeScript](https://www.typescriptlang.org/) - Static typing for JavaScript
+- [Vite](https://vitejs.dev/) - Build tool and development server
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+
+## Authors
+
+- **Romuald FERRANTE**  - [Zelcider](https://github.com/Zelcider)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+

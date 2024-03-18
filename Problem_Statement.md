@@ -1,93 +1,142 @@
-# Calendar Event Layout Manager
+## The problem
 
-This project tackles the challenge of rendering events on a calendar without visual overlaps, ensuring that every overlapping event shares the same width and each event utilizes the maximum width available. Developed with a focus on Clean Architecture principles and TDD (Test-Driven Development), this solution leverages Vite, Vitest, and TypeScript to create a robust, maintainable, and scalable application.
+The problem consists in rendering events on a calendar, avoiding overlapping events to visually overlap.
+Your implementation should meet the two following constraints:
 
-You can find the live demo [here](https://codesandbox.io/p/github/Zelcider/planity-test/main?workspaceId=f445c1d1-794c-4f02-9262-c64b06db8cbf).
+1. Every overlapping event should have the same width as every event it overlaps
+2. Every event should use the maximum width available while satisfying constraint 1
 
-And the initial problem statement [here](
+A visual illustration of the problem is given below.
 
-## Code Structure
+Rendering events on a calendar means here: the relative position of events to the top of the screen and their height is a function of the height of the screen, the start/end time of the calendar, and the start time/duration of the events. For example: if the calendar goes from 00:00 to 24:00 and the screen is 2400px high, an event starting at 12:00 and lasting 1h would be positioned at 1200px of the top of the screen and have a height of 100px.
 
-The codebase is structured into several main parts:
+Using the maximum width available here implies that the width of every group of mutually overlapping events equals the width of the window.
 
-- `entities`: This directory contains the domain entities used throughout the application.
-- `use-cases`: This directory contains the use cases that define the business logic of the application, such as calculating event overlaps and determining event dimensions.
-- `components`: This directory contains the React components used to build the user interface.
-- `interface-adapters`: This directory contains the presenter components that connect the entities with the components.
+## The input
 
-Here is a flow graph that shows how these parts interact:
+The input (available below) is an array of events occurring on the same date. They have the following structure:
 
-```mermaid
-graph LR
-    A[GroupedEvent] --> B[GroupedEventComponent]
-    B --> C[GroupedEventPresenter]
-    D[ColumnedEvent] --> E[ColumnedEventComponent]
-    E --> F[ColumnedEventPresenter]
-    G[TimeRangeEvent] --> H[TimeRangeEventComponent]
-    H --> I[TimeRangeEventPresenter]
-    C --> J[CalendarComponent]
-    F --> J
-    I --> J
+```javascript
+{
+  id: 1,
+  start: '15:00', // The event starts at 03:00 pm
+  duration: 90 // The duration is expressed in minutes
+}
 ```
 
-In this graph:
+## The output
 
-- `GroupedEvent`, `ColumnedEvent`, and `TimeRangeEvent` are the domain entities.
-- `GroupedEventComponent`, `ColumnedEventComponent`, and `TimeRangeEventComponent` are the React components.
-- `GroupedEventPresenter`, `ColumnedEventPresenter`, and `TimeRangeEventPresenter` are the presenter components that connect the entities with the components.
-- `CalendarComponent` is the main component that uses the presenter components to render the calendar.
+Your code should render the events on a webpage in a container spanning the whole window.
+The top of the page represents 09:00 am. The bottom of the page represents 09:00 pm.
 
-## Getting Started
+The events should be represented as a `div` with a background color and a 1px border. The `div` should display the event's `id`.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Your implementation should be responsive (i.e. respond to window `resize` events).
 
-### Prerequisites
+## Dependencies
 
-What things you need to install the software and how to install them.
+You may use React, any lightweight templating library, or vanilla JS to do the rendering. You may use helper libraries such as lodash, etc. if you wish to. Javascript can be written in ES6.
 
-- Node.js
-- npm
+The easiest way to share your code is a [sandbox](https://codesandbox.io/). If you wish to go with React, you may share a project created with [create-react-app](https://github.com/facebook/create-react-app), preferably on github.
 
-### Installing
+## Browser support
 
-Run this command to install the dependencies:
+Your code should run in major modern browsers.
 
-```bash
-npm install
+## Evaluation
+
+Our evaluation criteria are:
+
+* the correctness of the algorithm
+* the readability of the code (code structure, variables naming, comments,…)
+
+## Visual illustration of the problem
+
+**1 event**
+
+```
+┌────────────┐
+|            |
+└────────────┘
 ```
 
-## Running the tests
+**2 events**
 
-This project uses `vitest` for testing. To run the tests, use the following command:
-```bash
-npm test
+```
+┌─────┐┌─────┐
+|     |└─────┘
+└─────┘
 ```
 
-## Running the application
+**3 events where events 1, 2 and 3 overlap, but events 1 and 3 do not**
 
-To run the application, use the following command:
-```bash
-npm run dev
+```
+┌─────┐
+|  1  |┌─────┐
+└─────┘|     |
+       |  2  |
+┌─────┐|     |
+|  3  |└─────┘
+└─────┘
 ```
 
-## Built With
+The configuration above meets all constraints. Be careful, something like below would not meet constraint 2 :
 
-- [React](https://reactjs.org/) - The web framework used
-- [TypeScript](https://www.typescriptlang.org/) - Static typing for JavaScript
-- [Vite](https://vitejs.dev/) - Build tool and development server
+```
+┌───┐
+| 1 |┌───┐
+└───┘|   |
+     | 2 |
+     |   |┌───┐
+     └───┘| 3 |
+          └───┘
+```
 
-## Contributing
+**If we combine cases 1, 2 and 3, you should end up with something like**
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+*The schema below assumes the width of event 1 equals the width of the window.*
+
+```
+┌────────────┐
+|     1      |
+└────────────┘
+
+┌─────┐┌─────┐
+|     ||  3  |
+|  2  |└─────┘
+|     |
+└─────┘
+
+┌─────┐
+|  4  |┌─────┐
+└─────┘|     |
+       |  5  |
+┌─────┐|     |
+|  6  |└─────┘
+└─────┘
+```
+
+**Satisfying both constraints**
+
+*The schema below assumes the width of event 1 equals the width of the window.*
 
 
-## Authors
+```
+┌────────────┐
+|     1      |
+└────────────┘
 
-- **Romuald FERRANTE**  - [Zelcider](https://github.com/Zelcider)
+┌─────┐┌─────┐
+|     ||  3  |
+|  2  |└─────┘
+|     |
+└─────┘
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+┌───┐┌───┐
+|   || 5 |
+| 4 |└───┘
+|   |
+└───┘
+```
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
+Events 2 et 3 satisfy both constraints. Events 4 and 5 do not.
