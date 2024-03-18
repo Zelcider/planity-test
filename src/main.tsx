@@ -1,14 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import CalendarPresenter from "./interface-adapters/CalendarPresenter.tsx";
+import {GroupEvents} from "./use-cases/GroupEvents.ts";
+import events from '../input.json'
+
 
 const rootElement = document.getElementById('root')
 
 if (rootElement) {
     ReactDOM.createRoot(rootElement).render(
         <React.StrictMode>
-            <App />
+            <CalendarPresenter groupedEvents={GroupEvents(events)} />
         </React.StrictMode>,
     )
 }
