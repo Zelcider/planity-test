@@ -26,6 +26,8 @@ export function isOverlapping(timeRange1: TimeRange, timeRange2: TimeRange): boo
  */
 export function computeTimeRange(start: string, duration: number): TimeRange {
     const [hours, minutes] = start.split(':').map(Number);
+    if (hours < 0 || hours > 23 ) throw new Error('Invalid hour');
+    if (minutes < 0 || minutes > 59) throw new Error('Invalid minute');
     const startMinutes = hours * 60 + minutes;
     const endMinutes = startMinutes + duration;
     return { start: startMinutes, end: endMinutes };
