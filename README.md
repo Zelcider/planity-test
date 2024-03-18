@@ -28,3 +28,20 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+```mermaid
+graph TB
+A[TimeRangeEventComponent.tsx] --> B[Imports]
+A --> C[TimeRangeEventComponentProps Interface]
+A --> D[TimeRangeEventComponent Function Component]
+B --> E[React]
+B --> F[TimeRangeEvent from entities]
+B --> G[TimeRangeEvent.css]
+C --> H[timeRangeEvent: TimeRangeEvent]
+C --> I[height: number]
+C --> J[marginTop: number]
+D --> K[Return JSX]
+K --> L[time-range-event div]
+L --> M[time-range-id span]
+```
