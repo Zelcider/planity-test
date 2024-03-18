@@ -1,0 +1,9 @@
+
+.event {
+    position: absolute;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
