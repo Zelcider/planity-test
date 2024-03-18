@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import {GroupEvents} from "../use-cases/GroupEvents.ts";
+import {GroupEvents} from "../GroupEvents.ts";
 
 describe('Group Event', () => {
         test.each([
