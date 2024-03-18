@@ -21,13 +21,15 @@ export const TimeRangeEventComponent: React.FC<TimeRangeEventComponentProps> = (
     return (
         <div className="time-range-event" style={{marginTop: `${marginTop}vh`, height: `${height}vh`}}>
             <span
-                className="time-range">{displayHourMinutes(timeRangeEvent.timeRange.start)} - {displayHourMinutes(timeRangeEvent.timeRange.end)}</span>
+                className="time-range-id">{timeRangeEvent.id}</span>
+            {/*<span*/}
+            {/*    className="time-range">{displayHourMinutes(timeRangeEvent.timeRange.start)} - {displayHourMinutes(timeRangeEvent.timeRange.end)}</span>*/}
         </div>
     );
 };
 
-function displayHourMinutes(minutes: number): string {
- return `${Math.floor(minutes / 60).toString().padStart(2, '0')}:${(minutes % 60).toString().padStart(2, '0')}`;
-}
+// function displayHourMinutes(minutes: number): string {
+//     return `${Math.floor(minutes / 60).toString().padStart(2, '0')}:${(minutes % 60).toString().padStart(2, '0')}`;
+// }
 
 export default TimeRangeEventComponent;
