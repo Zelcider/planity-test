@@ -19,9 +19,9 @@ Here is a flow graph that shows how these parts interact:
 
 ```mermaid
 graph LR
-    B[GroupedEventComponent] --> C[GroupedEventPresenter]
-    E[ColumnedEventComponent] --> F[ColumnedEventPresenter]
-    H[TimeRangeEventComponent] --> I[TimeRangeEventPresenter]
+    B[EventRowComponent] --> C[OverlappingEventGroupPresenter]
+    E[EventColumnComponent] --> F[NonOverlappingEventGroupPresenter]
+    H[EventComponent] --> I[TimeRangeEventPresenter]
     K --> J[CalendarPresenter]
     C --> K[CalendarComponent]
     F --> K
@@ -31,8 +31,8 @@ graph LR
 
 In this graph:
 
-- `GroupedEventComponent`, `ColumnedEventComponent`, `TimeRangeEventComponent`,and `CalendarComponent` are the React components.
-- `GroupedEventPresenter`, `ColumnedEventPresenter`, `TimeRangeEventPresenter` and `CalendarPresenter` are the presenter components that connect the entities with the components.
+- `EventRowComponent`, `EventColumnComponent`, `EventComponent`and `CalendarComponent` are the React components.
+- `OverlappingEventGroupPresenter`, `NonOverlappingEventGroupPresenter`, `TimeRangeEventPresenter` and `CalendarPresenter` are the presenter components that connect the entities with the components.
 - `UseCase - GroupEventts` is the use case that defines the business logic of the application.
 
 ## Business Logic
@@ -43,15 +43,15 @@ The graph below shows the relationship between the different event types:
 
 ```mermaid
  graph LR
-A[ColumnedEvent] --> B[GroupedEvent]
+A[NonOverlappingEventGroup] --> B[OverlappingEventGroup]
 C[TimeRangeEvent] --> A
 ```
 
 In this graph:
 
 - `TimeRangeEvent` is an event that is displayed in a time range.
-- `ColumnedEvent` is an event that is displayed in a column.
-- `GroupedEvent` is an event that is grouped with other events.
+- `NonOverlappingEventGroup` is events that are not overlapping with any other event.
+- `OverlappingEventGroup` is events that are overlapping with at least one other event.
 
 ## Getting Started
 
