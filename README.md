@@ -2,7 +2,7 @@
 
 This project tackles the challenge of rendering events on a calendar without visual overlaps, ensuring that every overlapping event shares the same width and each event utilizes the maximum width available. Developed with a focus on Clean Architecture principles and TDD (Test-Driven Development), this solution leverages Vite, Vitest, and TypeScript to create a robust, maintainable, and scalable application.
 
-You can find the live demo [here](https://codesandbox.io/p/github/Zelcider/planity-test/main?workspaceId=f445c1d1-794c-4f02-9262-c64b06db8cbf).
+You can find the live demo [here](https://cj243c-5173.csb.app/).
 
 And the initial problem statement [here](Problem_Statement.md)
 
