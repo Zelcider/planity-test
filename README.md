@@ -19,23 +19,39 @@ Here is a flow graph that shows how these parts interact:
 
 ```mermaid
 graph LR
-    A[GroupedEvent] --> B[GroupedEventComponent]
-    B --> C[GroupedEventPresenter]
-    D[ColumnedEvent] --> E[ColumnedEventComponent]
-    E --> F[ColumnedEventPresenter]
-    G[TimeRangeEvent] --> H[TimeRangeEventComponent]
-    H --> I[TimeRangeEventPresenter]
-    C --> J[CalendarComponent]
-    F --> J
-    I --> J
+    B[GroupedEventComponent] --> C[GroupedEventPresenter]
+    E[ColumnedEventComponent] --> F[ColumnedEventPresenter]
+    H[TimeRangeEventComponent] --> I[TimeRangeEventPresenter]
+    K --> J[CalendarPresenter]
+    C --> K[CalendarComponent]
+    F --> K
+    I --> K
+    J --> L[UseCase - GroupedEvents]
 ```
 
 In this graph:
 
-- `GroupedEvent`, `ColumnedEvent`, and `TimeRangeEvent` are the domain entities.
-- `GroupedEventComponent`, `ColumnedEventComponent`, and `TimeRangeEventComponent` are the React components.
-- `GroupedEventPresenter`, `ColumnedEventPresenter`, and `TimeRangeEventPresenter` are the presenter components that connect the entities with the components.
-- `CalendarComponent` is the main component that uses the presenter components to render the calendar.
+- `GroupedEventComponent`, `ColumnedEventComponent`, `TimeRangeEventComponent`,and `CalendarComponent` are the React components.
+- `GroupedEventPresenter`, `ColumnedEventPresenter`, `TimeRangeEventPresenter` and `CalendarPresenter` are the presenter components that connect the entities with the components.
+- `UseCase - GroupEventts` is the use case that defines the business logic of the application.
+
+## Business Logic
+
+GroupEvents is a use case that takes a list of events and groups them by their start time
+
+The graph below shows the relationship between the different event types:
+
+```mermaid
+ graph LR
+A[ColumnedEvent] --> B[GroupedEvent]
+C[TimeRangeEvent] --> A
+```
+
+In this graph:
+
+- `TimeRangeEvent` is an event that is displayed in a time range.
+- `ColumnedEvent` is an event that is displayed in a column.
+- `GroupedEvent` is an event that is grouped with other events.
 
 ## Getting Started
 

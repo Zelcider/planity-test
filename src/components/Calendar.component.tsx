@@ -2,17 +2,13 @@ import './Calendar.css';
 import React, {ReactNode} from "react";
 
 /**
- * Columned event component properties
+ * Calendar component props
+ * @param children The children to render
  */
-export interface ColumnedEventComponentProps {
+export interface CalendarComponentProps {
     children: ReactNode;
 }
-
-/**
- * Columned event component
- * @param children The children
- */
-const CalendarComponent :React.FC<ColumnedEventComponentProps> = ({ children }) => {
+const CalendarComponent :React.FC<CalendarComponentProps> = ({ children }) => {
     return (
         <div className="calendar">
             {children}

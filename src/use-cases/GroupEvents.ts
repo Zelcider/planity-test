@@ -1,6 +1,6 @@
 import {computeTimeRange, isOverlapping} from "../entities/TimeRange.ts";
 import {TimeRangeEvent} from "../entities/TimeRangeEvent.ts";
-import {createNewGroup, GroupedEvent, updateGroup} from "../entities/GroupedEvent.ts";
+import {createOverlappingEventGroup, OverlappingEventGroup, updateOverlappingEventGroup} from "../entities/OverlappingEventGroup.ts";
 import {EventDto} from "../entities/EventDto.ts";
 
 /**
@@ -8,12 +8,12 @@ import {EventDto} from "../entities/EventDto.ts";
  * @param events The events to group
  * @returns The grouped events
  */
-export function GroupEvents(events: EventDto[]): GroupedEvent[] {
+export function GroupEvents(events: EventDto[]): OverlappingEventGroup[] {
     return events.map(e => ({id: e.id, timeRange: computeTimeRange(e.start,e.duration)} as TimeRangeEvent))
         .sort((a, b) => a.timeRange.start - b.timeRange.start)
-        .reduce<GroupedEvent[]>((acc, event) => {
+        .reduce<OverlappingEventGroup[]>((acc, event) => {
             const group = acc.find(g => isOverlapping(g.key, event.timeRange));
-            group ? updateGroup(group, event) : acc.push(createNewGroup(event));
+            group ? updateOverlappingEventGroup(group, event) : acc.push(createOverlappingEventGroup(event));
             return acc;
         }, []);
 }

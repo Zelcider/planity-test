@@ -19,10 +19,11 @@ export function isOverlapping(timeRange1: TimeRange, timeRange2: TimeRange): boo
 }
 
 /**
- * Update the group with the event
- * @param start The start time of the event
- * @param duration The duration of the event
- * @returns The time range of the event
+ * Compute the time range from a start time and a duration
+ * @param start - The start time in HH:MM format
+ * @param duration - The duration in minutes
+ * @throws {Error} - Throws an error if the hour or minute is invalid
+ * @returns The time range
  */
 export function computeTimeRange(start: string, duration: number): TimeRange {
     const [hours, minutes] = start.split(':').map(Number);
@@ -31,4 +32,17 @@ export function computeTimeRange(start: string, duration: number): TimeRange {
     const startMinutes = hours * 60 + minutes;
     const endMinutes = startMinutes + duration;
     return { start: startMinutes, end: endMinutes };
+}
+
+/**
+ * Combine two time ranges
+ * @param timeRange1 The first time range
+ * @param timeRange2 The second time range
+ * @returns The combined time range
+ */
+export function CombineTimeRange(timeRange1: TimeRange, timeRange2: TimeRange): TimeRange {
+    return {
+        start : Math.min(timeRange1.start, timeRange2.start),
+        end : Math.max(timeRange1.end, timeRange2.end)
+    };
 }

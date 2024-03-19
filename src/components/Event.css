@@ -1,4 +1,4 @@
-.time-range-event{
+.event{
     border: 1px solid #000;
     background-color: bisque;
     text-align: center;
@@ -8,16 +8,10 @@
     height: 100%;
 }
 
-.time-range-event-id{
+.event-id{
     color: #1010cd;
     font-size: 0.5em;
     font-weight: bolder;
     opacity: 0.3;
 }
 
-.time-range{
-    color: #1010cd;
-    font-size: 0.5em;
-    font-weight: bolder;
-    opacity: 0.3;
-}

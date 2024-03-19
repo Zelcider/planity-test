@@ -9,4 +9,3 @@ export interface TimeRangeEvent{
     id: number;
     timeRange: TimeRange;
 }
-

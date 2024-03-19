@@ -1,4 +1,4 @@
-.grouped-events {
+.event-row {
     display: flex;
     flex-direction: row;
 }
