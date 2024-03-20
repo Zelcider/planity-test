@@ -1,5 +1,4 @@
 
-.event-row {
-    display: flex;
-    flex-direction: row;
+.event-row{
+    display: grid;
 }

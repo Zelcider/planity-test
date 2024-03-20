@@ -1,6 +1,7 @@
 import React from 'react';
 import {TimeRangeEvent} from "../entities/TimeRangeEvent.ts";
 import './Event.css';
+import {calendarStart} from "../interface-adapters/CalendarPresenter.tsx";
 
 /**
  * Event component props
@@ -10,17 +11,19 @@ import './Event.css';
  */
 export interface EventComponentProps {
     timeRangeEvent: TimeRangeEvent;
-    height: number;
-    marginTop: number;
 }
 
-
-
-export const EventComponent: React.FC<EventComponentProps> = ({ timeRangeEvent, height, marginTop }) => {
+export const EventComponent: React.FC<EventComponentProps> = ({ timeRangeEvent }) => {
     return (
-        <div className="event" style={{marginTop: `${marginTop}vh`, height: `${height}vh`}}>
-            <span
-                className="event-id">{timeRangeEvent.id}</span>
+        <div className="event" style={{
+            gridRowStart: `${timeRangeEvent.timeRange.start - calendarStart}`,
+            gridRowEnd: `${timeRangeEvent.timeRange.end - calendarStart}`,
+            marginTop: `${timeRangeEvent.marginTop}px`,
+        }}>
+             <span
+                 className="event-id">{timeRangeEvent.timeRange.start} - {timeRangeEvent.timeRange.end}</span>
+            {/*<span*/}
+            {/*    className="event-id">{timeRangeEvent.id}</span>*/}
         </div>
     );
 };

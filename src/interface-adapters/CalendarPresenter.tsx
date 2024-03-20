@@ -6,21 +6,17 @@ import OverlappingEventGroupPresenter from "./OverlappingEventGroupPresenter.tsx
 
 interface CalendarPresenterProps {
     overlappingEventGroups: OverlappingEventGroup[];
-    calendarStart: string;
 }
 
-const CalendarPresenter: React.FC<CalendarPresenterProps> = ({ overlappingEventGroups, calendarStart }) => {
-    let previousElementEnd = parseInt(calendarStart.split(":")[0]) * 60 + parseInt(calendarStart.split(":")[1]);
+export const calendarStart = 9*60; // 9:00
+
+const CalendarPresenter: React.FC<CalendarPresenterProps> = ({ overlappingEventGroups }) => {
     return (
         <CalendarComponent>
-            {overlappingEventGroups.map(overlappingEventGroup => {
-                const result = OverlappingEventGroupPresenter({
+            {overlappingEventGroups.map((overlappingEventGroup) =>
+                OverlappingEventGroupPresenter({
                     overlappingEventGroup,
-                    previousElementEnd
-                });
-                previousElementEnd = overlappingEventGroup.key.end;
-                return result ;
-            })}
+                }))}
         </CalendarComponent>
     );
 };

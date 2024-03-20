@@ -1,6 +1,4 @@
 .calendar {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 1fr);
 }

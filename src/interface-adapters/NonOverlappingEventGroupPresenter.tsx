@@ -2,20 +2,17 @@ import {NonOverlappingEventGroup} from "../entities/NonOverlappingEventGroup.ts"
 import EventColumnComponent from "../components/EventColumn.component.tsx";
 import React from "react";
 import TimeRangeEventPresenter from "./TimeRangeEventPresenter.tsx";
-import {getPaddingTop} from "./TimeRangeUtils.ts";
 
 export interface NonOverlappingEventGroupPresenterProps {
     nonOverlappingEventGroup: NonOverlappingEventGroup;
-    firstEventStart: number;
+    indexGroup: number;
 }
 
-const NonOverlappingEventGroupPresenter :React.FC<NonOverlappingEventGroupPresenterProps>= ({nonOverlappingEventGroup, firstEventStart}) => {
+const NonOverlappingEventGroupPresenter :React.FC<NonOverlappingEventGroupPresenterProps>= ({nonOverlappingEventGroup, indexGroup}) => {
     const {timeRange, events } = nonOverlappingEventGroup;
-    const columnMarginTop = getPaddingTop(timeRange, firstEventStart);
-    const previousElementEnd = { current: timeRange.start };
     return (
-        <EventColumnComponent key={timeRange.start} marginTop={columnMarginTop}>
-            {events.map(e => TimeRangeEventPresenter({e, previousElementEnd }))}
+        <EventColumnComponent key={timeRange.start} indexGroup={indexGroup}>
+            {events.map(e => TimeRangeEventPresenter({e}))}
         </EventColumnComponent>
     );
 };

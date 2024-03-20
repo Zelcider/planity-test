@@ -8,13 +8,14 @@ import './EventColumn.css';
  */
 export interface EventColumnProps {
     children: ReactNode;
-    marginTop: number;
+    indexGroup: number;
 }
 
 
-const EventColumnComponent: React.FC<EventColumnProps> = ({ children, marginTop }) => {
+const EventColumnComponent: React.FC<EventColumnProps> = ({ children, indexGroup }) => {
     return (
-        <div className="event-column" style={{marginTop: `${marginTop}vh`}} >
+        <div className={"event-column"}
+            style={{gridColumn: `${indexGroup +1}`}}>
             {children}
         </div>
     )

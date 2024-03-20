@@ -1,21 +1,25 @@
 import React, {ReactNode} from "react";
 import './EventRow.css';
+import {calendarStart} from "../interface-adapters/CalendarPresenter.tsx";
 
 /**
  * Event row component props
- * @param height The height of the event
- * @param marginTop The margin top
  * @param children The children to render
  */
 export interface EventRowProps {
-    height: number;
-    marginTop: number;
     children: ReactNode;
+    rowStart: number;
+    rowEnd: number;
 }
 
-const EventRowComponent: React.FC<EventRowProps> = ({ children, height: height, marginTop }) => {
+const EventRowComponent: React.FC<EventRowProps> = ({ children, rowEnd, rowStart }) => {
     return (
-        <div className="event-row" style={{height: `${height}vh`, marginTop: `${marginTop}vh`}} >
+        <div
+            className={"event-row"}
+            style={{
+            gridRowStart: `${rowStart - calendarStart}`,
+            gridRowEnd: `${rowEnd - calendarStart}`,
+        }}>
             {children}
         </div>
     )
