@@ -10,7 +10,7 @@ const rootElement = document.getElementById('root')
 if (rootElement) {
     ReactDOM.createRoot(rootElement).render(
         <React.StrictMode>
-            <CalendarPresenter groupedEvents={GroupEvents(events)} calendarStart={"9:00"} />
+            <CalendarPresenter overlappingEventGroups={GroupEvents(events)} calendarStart={"9:00"} />
         </React.StrictMode>,
     )
 }

@@ -1,8 +1,8 @@
 import {OverlappingEventGroup} from "../entities/OverlappingEventGroup.ts";
-import GroupedEventComponent from "../components/GroupedEvent.component.tsx";
 import NonOverlappingEventGroupPresenter from "./NonOverlappingEventGroupPresenter.tsx";
 import React from "react";
 import {getHeight, getPaddingTop} from "./TimeRangeUtils.ts";
+import EventRowComponent from "../components/EventRow.component.tsx";
 
 
 export interface OverlappingEventGroupPresenterProps {
@@ -16,10 +16,10 @@ const OverlappingEventGroupPresenter : React.FC<OverlappingEventGroupPresenterPr
     const height = getHeight(key);
 
     return (
-        <GroupedEventComponent key={key.start} height={height} marginTop={groupMarginTop}>
+        <EventRowComponent key={key.start} height={height} marginTop={groupMarginTop}>
             {nonOverlappingEventGroups.map(nonOverlappingEventGroup =>
                 NonOverlappingEventGroupPresenter({nonOverlappingEventGroup: nonOverlappingEventGroup, firstEventStart: key.start }) )}
-        </GroupedEventComponent>
+        </EventRowComponent>
     );
 };
 
