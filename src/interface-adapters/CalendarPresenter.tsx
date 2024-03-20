@@ -5,20 +5,20 @@ import OverlappingEventGroupPresenter from "./OverlappingEventGroupPresenter.tsx
 
 
 interface CalendarPresenterProps {
-    groupedEvents: OverlappingEventGroup[];
+    overlappingEventGroups: OverlappingEventGroup[];
     calendarStart: string;
 }
 
-const CalendarPresenter: React.FC<CalendarPresenterProps> = ({ groupedEvents, calendarStart }) => {
+const CalendarPresenter: React.FC<CalendarPresenterProps> = ({ overlappingEventGroups, calendarStart }) => {
     let previousElementEnd = parseInt(calendarStart.split(":")[0]) * 60 + parseInt(calendarStart.split(":")[1]);
     return (
         <CalendarComponent>
-            {groupedEvents.map(ge => {
+            {overlappingEventGroups.map(overlappingEventGroup => {
                 const result = OverlappingEventGroupPresenter({
-                    groupedEvent: ge,
-                    previousElementEndUpdater: previousElementEnd
+                    overlappingEventGroup,
+                    previousElementEnd
                 });
-                previousElementEnd = ge.key.end;
+                previousElementEnd = overlappingEventGroup.key.end;
                 return result ;
             })}
         </CalendarComponent>

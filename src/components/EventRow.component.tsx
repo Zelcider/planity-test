@@ -1,6 +1,5 @@
 import React, {ReactNode} from "react";
-import './EventRow.css.css';
-
+import './EventRow.css';
 
 /**
  * Event row component props

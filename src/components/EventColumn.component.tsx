@@ -1,7 +1,6 @@
 import React, {ReactNode} from "react";
 import './EventColumn.css';
 
-
 /**
  * Event column component props
  * @param children The children to render
